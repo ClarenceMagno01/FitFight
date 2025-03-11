@@ -25,44 +25,43 @@
 //}
 
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI; // For UI elements
 
 public class ThighPress : MonoBehaviour
 {
     public Text feedbackText; // UI feedback for player
-    public InputSystem_Actions inputActions; // Input System reference
 
-    private int thighPressCount = 0; // Count of completed thigh presses
+    private bool isPressing = false;
+    private int thighPressCount = 0; // Count of completed presses
 
-    private void Awake()
+    void Update()
     {
-        inputActions = new InputSystem_Actions();
-    }
+        // Ensure player is seated (Strapcon Down - Button 12)
+        bool isSeated = Input.GetKey(KeyCode.JoystickButton12);
 
-    private void OnEnable()
-    {
-        inputActions.Player.Enable();
-        inputActions.Player.RingconHeavyPress.started += OnThighPress; // Detect heavy press
-        inputActions.Player.RingconHeavyPress.canceled += OnThighPressRelease; // Detect release
-    }
+        if (isSeated)
+        {
+            feedbackText.text = "Seated position detected. Squeeze the Ring-Con!";
+        }
+        else
+        {
+            feedbackText.text = "Sit down before pressing!";
+            isPressing = false; // Reset pressing state if player stands up
+        }
 
-    private void OnDisable()
-    {
-        inputActions.Player.RingconHeavyPress.started -= OnThighPress;
-        inputActions.Player.RingconHeavyPress.canceled -= OnThighPressRelease;
-        inputActions.Player.Disable();
-    }
+        // Detect Thigh Press (Left Shoulder Button - Button 4)
+        if (isSeated && Input.GetKeyDown(KeyCode.JoystickButton4) && !isPressing)
+        {
+            isPressing = true;
+            thighPressCount++;
+            feedbackText.text = $"Thigh Press Complete! Total: {thighPressCount}";
+            Debug.Log($"Thigh Press detected. Total: {thighPressCount}");
+        }
 
-    private void OnThighPress(InputAction.CallbackContext context)
-    {
-        thighPressCount++;
-        Debug.Log($"Thigh Press detected. Total Presses: {thighPressCount}");
-        feedbackText.text = $"Thigh Press Complete! Total: {thighPressCount}";
-    }
-
-    private void OnThighPressRelease(InputAction.CallbackContext context)
-    {
-        feedbackText.text = "Squeeze the Ring-Con with your thighs!";
+        // Reset state when button is released
+        if (Input.GetKeyUp(KeyCode.JoystickButton4))
+        {
+            isPressing = false;
+        }
     }
 }

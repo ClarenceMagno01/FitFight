@@ -1,38 +1,18 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI; // For UI elements
 
 public class KneeLift : MonoBehaviour
 {
     public Text feedbackText; // UI feedback for player
-    public InputSystem_Actions inputActions; // Input System reference
 
     private bool isLiftingLeft = false;
     private bool isLiftingRight = false;
     private int kneeLiftCount = 0; // Count of completed knee lifts
 
-    private void Awake()
+    void Update()
     {
-        inputActions = new InputSystem_Actions();
-    }
-
-    private void OnEnable()
-    {
-        inputActions.Player.Enable();
-        inputActions.Player.StrapconLeft.started += OnKneeLiftLeft;
-        inputActions.Player.StrapconRight.started += OnKneeLiftRight;
-    }
-
-    private void OnDisable()
-    {
-        inputActions.Player.StrapconLeft.started -= OnKneeLiftLeft;
-        inputActions.Player.StrapconRight.started -= OnKneeLiftRight;
-        inputActions.Player.Disable();
-    }
-
-    private void OnKneeLiftLeft(InputAction.CallbackContext context)
-    {
-        if (!isLiftingLeft)
+        // Left Knee Lift (Strapcon Down - Button 12)
+        if (Input.GetKeyDown(KeyCode.JoystickButton12) && !isLiftingLeft)
         {
             isLiftingLeft = true;
             kneeLiftCount++;
@@ -40,11 +20,9 @@ public class KneeLift : MonoBehaviour
             Debug.Log($"Left Knee Lifted. Total: {kneeLiftCount}");
             ResetKneeLift();
         }
-    }
 
-    private void OnKneeLiftRight(InputAction.CallbackContext context)
-    {
-        if (!isLiftingRight)
+        // Right Knee Lift (Strapcon Up - Button 13)
+        if (Input.GetKeyDown(KeyCode.JoystickButton13) && !isLiftingRight)
         {
             isLiftingRight = true;
             kneeLiftCount++;

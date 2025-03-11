@@ -1,59 +1,42 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI; // For UI elements
 
 public class WideSquat : MonoBehaviour
 {
     public Text feedbackText; // UI feedback for player
-    public InputSystem_Actions inputActions; // Input System reference
 
-    private bool isSquatting = false;
     private bool isWideStance = false;
+    private bool isSquatting = false;
     private int squatCount = 0; // Count of completed squats
 
-    private void Awake()
+    void Update()
     {
-        inputActions = new InputSystem_Actions();
-    }
+        // Check if legs are wide apart (Strapcon Left - Button 10 & Strapcon Right - Button 11)
+        bool leftLegOut = Input.GetKey(KeyCode.JoystickButton10);
+        bool rightLegOut = Input.GetKey(KeyCode.JoystickButton11);
 
-    private void OnEnable()
-    {
-        inputActions.Player.Enable();
-        inputActions.Player.StrapconLeft.started += OnLegsMove;
-        inputActions.Player.StrapconRight.started += OnLegsMove;
-        inputActions.Player.StrapconDown.started += OnSquatStart;
-        inputActions.Player.StrapconDown.canceled += OnSquatEnd;
-    }
+        isWideStance = leftLegOut && rightLegOut;
 
-    private void OnDisable()
-    {
-        inputActions.Player.StrapconLeft.started -= OnLegsMove;
-        inputActions.Player.StrapconRight.started -= OnLegsMove;
-        inputActions.Player.StrapconDown.started -= OnSquatStart;
-        inputActions.Player.StrapconDown.canceled -= OnSquatEnd;
-        inputActions.Player.Disable();
-    }
+        if (isWideStance)
+        {
+            feedbackText.text = "Wide stance detected. Ready to squat!";
+        }
+        else
+        {
+            feedbackText.text = "Move legs apart for wide squat!";
+            isSquatting = false; // Reset squat state if legs are not wide apart
+        }
 
-    private void OnLegsMove(InputAction.CallbackContext context)
-    {
-        isWideStance = true;
-        feedbackText.text = "Wide stance detected. Ready to squat!";
-        Debug.Log("Wide stance detected.");
-    }
-
-    private void OnSquatStart(InputAction.CallbackContext context)
-    {
-        if (isWideStance && !isSquatting)
+        // Wide Squat Detection (Back Button - Button 6)
+        if (isWideStance && Input.GetKeyDown(KeyCode.JoystickButton6) && !isSquatting)
         {
             isSquatting = true;
             feedbackText.text = "Squatting... Hold position!";
             Debug.Log("Player is performing a Wide Squat.");
         }
-    }
 
-    private void OnSquatEnd(InputAction.CallbackContext context)
-    {
-        if (isSquatting)
+        // Squat Completion (Strapcon Down - Button 12)
+        if (isSquatting && Input.GetKeyDown(KeyCode.JoystickButton12))
         {
             isSquatting = false;
             squatCount++;

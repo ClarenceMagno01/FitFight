@@ -37,84 +37,47 @@
 //}
 
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI; // For UI elements
 
 public class OverheadSquat : MonoBehaviour
 {
-    public Text feedbackText; // UI text for feedback
-    public InputSystem_Actions inputActions; // Input System reference
+    public Text feedbackText; // UI feedback for player
 
     private bool isRingOverhead = false;
     private bool isSquatting = false;
-    private int squatCount = 0;
+    private int squatCount = 0; // Count of completed squats
 
-    private void Awake()
+    void Update()
     {
-        // Initialize input actions
-        inputActions = new InputSystem_Actions();
-    }
+        // Detect if the Ring-Con is held overhead using the Vertical axis
+        float vertical = Input.GetAxis("Vertical");
+        isRingOverhead = vertical <= -0.9f; // Threshold for overhead position
 
-    private void OnEnable()
-    {
-        inputActions.Player.Enable();
-        inputActions.Player.RingconRotate.performed += OnRingconRotate;
-        inputActions.Player.RingconRotate.canceled += OnRingconRotate;
-        inputActions.Player.StrapconDown.started += OnSquat;
-        inputActions.Player.StrapconDown.canceled += OnSquat;
-        inputActions.Player.RingconHeavyPress.started += OnSquat; // Alternative squat trigger
-    }
-
-    private void OnDisable()
-    {
-        inputActions.Player.RingconRotate.performed -= OnRingconRotate;
-        inputActions.Player.RingconRotate.canceled -= OnRingconRotate;
-        inputActions.Player.StrapconDown.started -= OnSquat;
-        inputActions.Player.StrapconDown.canceled -= OnSquat;
-        inputActions.Player.RingconHeavyPress.started -= OnSquat;
-        inputActions.Player.Disable();
-    }
-
-    private void OnRingconRotate(InputAction.CallbackContext context)
-    {
-        Vector2 rotation = context.ReadValue<Vector2>();
-
-        if (rotation.y <= -0.9f) // Threshold for overhead position
+        if (isRingOverhead)
         {
-            if (!isRingOverhead)
-            {
-                Debug.Log("Ringcon is now overhead. Ready for Overhead Squats.");
-                feedbackText.text = "Hold the Ringcon Overhead!";
-                isRingOverhead = true;
-            }
+            feedbackText.text = "Ring-Con Overhead! Ready to squat!";
         }
         else
         {
-            if (isRingOverhead)
-            {
-                Debug.Log("Ringcon is no longer overhead.");
-                feedbackText.text = "Raise the Ringcon!";
-                isRingOverhead = false;
-                isSquatting = false;
-            }
+            feedbackText.text = "Raise the Ring-Con Overhead!";
+            isSquatting = false; // Reset squat state if arms drop
         }
-    }
 
-    private void OnSquat(InputAction.CallbackContext context)
-    {
-        if (isRingOverhead)
+        // Overhead Squat Detection (Back Button - Button 6)
+        if (isRingOverhead && Input.GetKeyDown(KeyCode.JoystickButton6) && !isSquatting)
         {
-            if (context.started && !isSquatting)
-            {
-                isSquatting = true;
-                squatCount++;
-                Debug.Log($"Overhead Squat detected. Total Squats: {squatCount}");
-                feedbackText.text = $"Squat Complete! Total: {squatCount}";
-            }
-            else if (context.canceled)
-            {
-                isSquatting = false;
-            }
+            isSquatting = true;
+            feedbackText.text = "Squatting... Hold position!";
+            Debug.Log("Player is performing an Overhead Squat.");
+        }
+
+        // Squat Completion (Strapcon Down - Button 12)
+        if (isSquatting && Input.GetKeyDown(KeyCode.JoystickButton12))
+        {
+            isSquatting = false;
+            squatCount++;
+            feedbackText.text = $"Overhead Squat Complete! Total: {squatCount}";
+            Debug.Log($"Overhead Squat detected. Total Squats: {squatCount}");
         }
     }
 }
