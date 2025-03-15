@@ -15,12 +15,21 @@ public class PlayerStats : MonoBehaviour
     public int gold = 100; // Player's gold for shop purchases
 
     private Dictionary<string, int> statusEffects = new Dictionary<string, int>();
-    private string equippedArtifact = null; // The player's held artifact
+    private List<string> equippedArtifacts = new List<string>(); // Multiple artifacts
+
+    public TurnManager turnManager; // Reference to Turn Manager
 
     void Start()
     {
         currentHP = maxHP;
         currentMP = maxMP;
+
+        // Auto-assign TurnManager if not manually assigned
+        if (turnManager == null)
+        {
+            turnManager = FindObjectOfType<TurnManager>();
+        }
+
         ResetStats();
     }
 
@@ -31,10 +40,28 @@ public class PlayerStats : MonoBehaviour
         block = baseBlock;
     }
 
+    // Apply Burn damage at the start of the player's turn
+    private void ApplyBurnDamage()
+    {
+        if (HasStatusEffect("Burn"))
+        {
+            int burnStacks = GetStatusEffectStacks("Burn");
+            TakeDamage(2 * burnStacks); // Each Burn stack deals 2 damage
+            RemoveStatusEffect("Burn", 1);
+            Debug.Log($"Burn deals {2 * burnStacks} damage. Remaining Burn stacks: {GetStatusEffectStacks("Burn")}");
+        }
+    }
+
+    // Called at the start of the player's turn
+    public void StartTurn()
+    {
+        ApplyBurnDamage();
+    }
+
     // Apply a status effect (stackable)
     public void ApplyStatusEffect(string effect, int stacks = 1)
     {
-        if (statusEffects.ContainsKey("Immune"))
+        if (HasStatusEffect("Immune"))
         {
             Debug.Log($"Player is immune to {effect}!");
             return;
@@ -75,37 +102,35 @@ public class PlayerStats : MonoBehaviour
     // Calculate status effects
     private void ApplyStatusEffects()
     {
-        ResetStats(); // Reset stats before reapplying effects
+        ResetStats();
 
-        if (statusEffects.ContainsKey("Lethargy"))
+        if (HasStatusEffect("Lethargy"))
         {
-            float reduction = 1 - (0.25f * statusEffects["Lethargy"]);
-            attackDamage = Mathf.RoundToInt(baseAttackDamage * reduction);
+            attackDamage = Mathf.RoundToInt(baseAttackDamage * (1 - (0.25f * GetStatusEffectStacks("Lethargy"))));
         }
 
-        if (statusEffects.ContainsKey("Exposed"))
+        if (HasStatusEffect("Exposed"))
         {
-            float increase = 1 + (0.5f * statusEffects["Exposed"]);
+            float increase = 1 + (0.5f * GetStatusEffectStacks("Exposed"));
             currentHP -= Mathf.RoundToInt(currentHP * (increase - 1));
         }
 
-        if (statusEffects.ContainsKey("Pumped"))
+        if (HasStatusEffect("Pumped"))
         {
-            attackDamage += statusEffects["Pumped"];
+            attackDamage += GetStatusEffectStacks("Pumped");
         }
 
-        if (statusEffects.ContainsKey("Reinforced"))
+        if (HasStatusEffect("Reinforced"))
         {
-            block += statusEffects["Reinforced"];
+            block += GetStatusEffectStacks("Reinforced");
         }
 
-        if (statusEffects.ContainsKey("Feeble"))
+        if (HasStatusEffect("Feeble"))
         {
-            float reduction = 1 - (0.25f * statusEffects["Feeble"]);
-            block = Mathf.RoundToInt(block * reduction);
+            block = Mathf.RoundToInt(block * (1 - (0.25f * GetStatusEffectStacks("Feeble"))));
         }
 
-        if (statusEffects.ContainsKey("Warmup"))
+        if (HasStatusEffect("Warmup"))
         {
             energy = Mathf.RoundToInt(energy / 2);
         }
@@ -113,13 +138,23 @@ public class PlayerStats : MonoBehaviour
         Debug.Log($"Updated Stats - Attack: {attackDamage}, Block: {block}, HP: {currentHP}/{maxHP}");
     }
 
+    // Prevent Attacks if Entangled
+    public bool CanAttack()
+    {
+        if (HasStatusEffect("Entangled"))
+        {
+            Debug.Log("You are Entangled and cannot attack!");
+            return false;
+        }
+        return true;
+    }
+
     // Take damage (affected by Exposed)
     public void TakeDamage(int damage)
     {
-        if (statusEffects.ContainsKey("Exposed"))
+        if (HasStatusEffect("Exposed"))
         {
-            float increase = 1 + (0.5f * statusEffects["Exposed"]);
-            damage = Mathf.RoundToInt(damage * increase);
+            damage = Mathf.RoundToInt(damage * (1 + (0.5f * GetStatusEffectStacks("Exposed"))));
         }
 
         currentHP -= damage;
@@ -144,7 +179,7 @@ public class PlayerStats : MonoBehaviour
     // Gain energy (affected by Warmup)
     public void GainEnergy(int amount)
     {
-        if (statusEffects.ContainsKey("Warmup"))
+        if (HasStatusEffect("Warmup"))
         {
             amount /= 2;
         }
@@ -164,35 +199,42 @@ public class PlayerStats : MonoBehaviour
         return statusEffects.ContainsKey(effect) ? statusEffects[effect] : 0;
     }
 
-    // Set or replace an artifact
+    // Equip an artifact (now supports multiple artifacts)
     public void EquipArtifact(string artifact)
     {
-        equippedArtifact = artifact;
-        Debug.Log($"Player equipped {artifact}!");
+        if (!equippedArtifacts.Contains(artifact))
+        {
+            equippedArtifacts.Add(artifact);
+            Debug.Log($"Player equipped {artifact}!");
+        }
+        else
+        {
+            Debug.Log($"Player already has {artifact} equipped.");
+        }
     }
 
-    // Use the equipped artifact
-    public void UseArtifact()
+    // Use an artifact (each artifact has its own effect)
+    public void UseArtifact(string artifact)
     {
-        if (equippedArtifact == null)
+        if (!equippedArtifacts.Contains(artifact))
         {
-            Debug.Log("No artifact equipped.");
+            Debug.Log($"Player does not have {artifact} equipped.");
             return;
         }
 
-        Debug.Log($"Using artifact: {equippedArtifact}");
+        Debug.Log($"Using artifact: {artifact}");
 
-        // Example effect handling
-        if (equippedArtifact == "Healing Relic")
+        // Example artifact effects
+        if (artifact == "Healing Relic")
         {
             Heal(15);
         }
-        else if (equippedArtifact == "Gold Doubler")
+        else if (artifact == "Gold Doubler")
         {
             gold *= 2;
         }
 
-        equippedArtifact = null; // One-time use
+        equippedArtifacts.Remove(artifact); // Remove after use
     }
 
     // Heal the player
@@ -229,7 +271,20 @@ public class PlayerStats : MonoBehaviour
     // Player death
     private void Die()
     {
-        Debug.Log("Player has died!");
-        // Trigger game over or reset logic here
+        Debug.Log("Player has died! Game Over.");
+        GameOver();
+    }
+
+    // Game Over Logic
+    private void GameOver()
+    {
+        Debug.Log("Game Over! Restart or Exit.");
+    }
+
+    // End the player's turn and switch to enemy turn
+    public void EndTurn()
+    {
+        Debug.Log("Player ends turn.");
+        turnManager.EndPlayerTurn();
     }
 }

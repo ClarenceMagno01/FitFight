@@ -17,14 +17,17 @@ public class JawWorm : EnemyStats
     {
         if (isDefensive)
         {
-            GainBlock(6);
+            player.ApplyStatusEffect("Reinforced", 1);
             player.ApplyStatusEffect("Pumped", 1);
-            Debug.Log($"{enemyName} gains block and strength!");
+            Debug.Log($"{enemyName} applies 1 Reinforced (boosts block gain) and 1 Pumped (boosts attack) to itself.");
         }
         else
         {
             AttackPlayer();
+            Debug.Log($"{enemyName} attacks for {baseAttackDamage} damage.");
         }
+
         isDefensive = !isDefensive;
+        EndTurn();
     }
 }

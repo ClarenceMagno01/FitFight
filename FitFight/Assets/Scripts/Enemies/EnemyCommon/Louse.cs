@@ -19,11 +19,27 @@ public class Louse : EnemyStats
         if (Random.value < 0.5f)
         {
             AttackPlayer();
+            Debug.Log($"{enemyName} attacks for {baseAttackDamage} damage.");
         }
         else
         {
-            player.ApplyStatusEffect(type == LouseType.Red ? "Weak" : "Feeble", 1);
-            Debug.Log($"{enemyName} applies a debuff!");
+            ApplyDebuff();
+        }
+
+        EndTurn();
+    }
+
+    private void ApplyDebuff()
+    {
+        if (type == LouseType.Red)
+        {
+            player.ApplyStatusEffect("Lethargy", 1);
+            Debug.Log($"{enemyName} applies Lethargy (reduces player attack by 25%).");
+        }
+        else if (type == LouseType.Green)
+        {
+            player.ApplyStatusEffect("Feeble", 1);
+            Debug.Log($"{enemyName} applies Feeble (reduces block gain by 25%).");
         }
     }
 }

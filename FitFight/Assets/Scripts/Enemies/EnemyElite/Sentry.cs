@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Sentry : EliteEnemy
 {
+    private int turnCounter = 0;
+
     public override void Start()
     {
         enemyName = "Sentry";
@@ -13,8 +15,21 @@ public class Sentry : EliteEnemy
 
     public override void StartTurn()
     {
-        player.ApplyStatusEffect("Dazed", 1);
-        Debug.Log($"{enemyName} inflicts Dazed!");
-        AttackPlayer();
+        turnCounter++;
+
+        if (turnCounter % 2 == 0)
+        {
+            // Every second turn: Inflicts Lethargy (reduces player attack)
+            player.ApplyStatusEffect("Lethargy", 1);
+            Debug.Log($"{enemyName} emits a weakening pulse! Player gains 1 Lethargy stack.");
+        }
+        else
+        {
+            // Normal attack turn
+            AttackPlayer();
+            Debug.Log($"{enemyName} attacks for {baseAttackDamage} damage.");
+        }
+
+        EndTurn();
     }
 }

@@ -9,16 +9,21 @@ public class EnemyStats : MonoBehaviour
     public int block;
     public int goldReward; // Gold given to the player on death
 
-    public PlayerStats player; // Reference to the player
+    public PlayerStats player;
+    public TurnManager turnManager; // Reference to Turn Manager
 
     public virtual void Start()
     {
         currentHP = maxHP;
     }
 
-    public virtual void StartTurn() { }
+    public virtual void StartTurn()
+    {
+        AttackPlayer();
+        EndTurn();
+    }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         currentHP -= damage;
         if (currentHP < 0) currentHP = 0;
@@ -47,11 +52,16 @@ public class EnemyStats : MonoBehaviour
     {
         Debug.Log($"{enemyName} has been defeated!");
         player.GainGold(goldReward);
+        turnManager.RemoveEnemy(this); // Removes the enemy from the turn list
     }
 
-    private void Die()
+    protected void Die() // Change from private to protected
     {
         OnDeath();
-        Destroy(gameObject); // Removes enemy from scene
+    }
+
+    public void EndTurn()
+    {
+        Debug.Log($"{enemyName} ends its turn.");
     }
 }

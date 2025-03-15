@@ -14,11 +14,13 @@ public class GremlinNob : EliteEnemy
     public override void StartTurn()
     {
         AttackPlayer();
+        Debug.Log($"{enemyName} attacks for {baseAttackDamage} damage.");
+        EndTurn();
     }
 
     public void OnPlayerUsesSkill()
     {
-        player.ApplyStatusEffect("Pumped", 2);
-        Debug.Log($"{enemyName} gains strength when the player uses a skill!");
+        player.ApplyStatusEffect("Pumped", 2); // Gains 2 strength per skill used
+        Debug.Log($"{enemyName} becomes enraged! Gains 2 Pumped.");
     }
 }
