@@ -14,7 +14,7 @@ public class EnemyStats : MonoBehaviour
     public PlayerStats player;
     public TurnManager turnManager; // Reference to Turn Manager
 
-    private StatusEffectManager statusEffectManager;
+    public StatusEffectManager statusEffectManager;
     private Dictionary<string, int> statusEffectStacks = new Dictionary<string, int>();
 
     public virtual void Start()

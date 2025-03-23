@@ -17,8 +17,6 @@ public class ArmsOverheadPress : Card
         target.TakeDamage(damage);
         Debug.Log($"Arms - Overhead Press deals {damage} damage to {target.enemyName}!");
 
-        // End player's turn (if applicable)
-        player.EndTurn();
     }
 
     // Method to upgrade the card

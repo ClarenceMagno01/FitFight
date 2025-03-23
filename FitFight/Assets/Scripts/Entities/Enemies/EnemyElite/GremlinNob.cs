@@ -20,7 +20,14 @@ public class GremlinNob : EliteEnemy
 
     public void OnPlayerUsesSkill()
     {
-        player.ApplyStatusEffect("Pumped", 2); // Gains 2 strength per skill used
-        Debug.Log($"{enemyName} becomes enraged! Gains 2 Pumped.");
+        if (player != null && player.TryGetComponent<StatusEffectManager>(out StatusEffectManager playerStatusManager))
+        {
+            playerStatusManager.ApplyStatusEffect("Pumped", 2); // Gains 2 Pumped
+            Debug.Log($"{enemyName} becomes enraged! Gains 2 Pumped.");
+        }
+        else
+        {
+            Debug.LogError("StatusEffectManager is missing from PlayerStats!");
+        }
     }
 }

@@ -58,8 +58,19 @@ public class Lagavulin : EliteEnemy
         if (turnCounter % 2 == 0)
         {
             // Every second turn: Inflicts Weak on player
-            player.ApplyStatusEffect("Weak", 2);
-            Debug.Log($"{enemyName} uses a Debuff! Player gains 2 Weak stacks.");
+            if (player != null)
+            {
+                StatusEffectManager playerStatusManager = player.GetComponent<StatusEffectManager>();
+                if (playerStatusManager != null)
+                {
+                    playerStatusManager.ApplyStatusEffect("Weak", 2);
+                    Debug.Log($"{enemyName} uses a Debuff! Player gains 2 Weak stacks.");
+                }
+                else
+                {
+                    Debug.LogWarning("Player does not have a StatusEffectManager component!");
+                }
+            }
         }
         else
         {

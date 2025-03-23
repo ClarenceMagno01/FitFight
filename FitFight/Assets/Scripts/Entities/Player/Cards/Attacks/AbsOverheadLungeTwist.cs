@@ -22,8 +22,6 @@ public class AbsOverheadLungeTwist : Card
         target.AddStatusEffect("Exposed", exposedStacks);
         Debug.Log($"{target.enemyName} gains {exposedStacks} stacks of Exposed!");
 
-        // End player's turn (if applicable)
-        player.EndTurn();
     }
 
     // Method to upgrade the card

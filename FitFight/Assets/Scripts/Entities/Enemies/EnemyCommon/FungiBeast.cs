@@ -21,7 +21,19 @@ public class FungiBeast : EnemyStats
     public override void OnDeath()
     {
         base.OnDeath();
-        player.ApplyStatusEffect("Exposed", 1);
-        Debug.Log($"{enemyName} dies! Player becomes Exposed (takes 50% more damage).");
+        
+        if (player != null)
+        {
+            StatusEffectManager playerStatusManager = player.GetComponent<StatusEffectManager>();
+            if (playerStatusManager != null)
+            {
+                playerStatusManager.ApplyStatusEffect("Exposed", 1);
+                Debug.Log($"{enemyName} dies! Player becomes Exposed (takes 50% more damage).");
+            }
+            else
+            {
+                Debug.LogWarning("Player does not have a StatusEffectManager component!");
+            }
+        }
     }
 }

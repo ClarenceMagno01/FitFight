@@ -31,15 +31,22 @@ public class Louse : EnemyStats
 
     private void ApplyDebuff()
     {
-        if (type == LouseType.Red)
+        if (player.TryGetComponent<StatusEffectManager>(out StatusEffectManager playerStatusManager))
         {
-            player.ApplyStatusEffect("Lethargy", 1);
-            Debug.Log($"{enemyName} applies Lethargy (reduces player attack by 25%).");
+            if (type == LouseType.Red)
+            {
+                playerStatusManager.ApplyStatusEffect("Lethargy", 1);
+                Debug.Log($"{enemyName} applies Lethargy (reduces player attack by 25%).");
+            }
+            else if (type == LouseType.Green)
+            {
+                playerStatusManager.ApplyStatusEffect("Feeble", 1);
+                Debug.Log($"{enemyName} applies Feeble (reduces block gain by 25%).");
+            }
         }
-        else if (type == LouseType.Green)
+        else
         {
-            player.ApplyStatusEffect("Feeble", 1);
-            Debug.Log($"{enemyName} applies Feeble (reduces block gain by 25%).");
+            Debug.LogError("StatusEffectManager is missing from PlayerStats!");
         }
     }
 }

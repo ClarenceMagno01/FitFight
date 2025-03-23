@@ -34,15 +34,22 @@ public class Slaver : EnemyStats
 
     private void ApplyDebuff()
     {
-        if (type == SlaverType.Blue)
+        if (player.TryGetComponent<StatusEffectManager>(out StatusEffectManager playerStatusManager))
         {
-            player.ApplyStatusEffect("Lethargy", 1);
-            Debug.Log($"{enemyName} applies Lethargy (reduces player attack by 25%).");
+            if (type == SlaverType.Blue)
+            {
+                playerStatusManager.ApplyStatusEffect("Lethargy", 1);
+                Debug.Log($"{enemyName} applies Lethargy (reduces player attack by 25%).");
+            }
+            else if (type == SlaverType.Red)
+            {
+                playerStatusManager.ApplyStatusEffect("Entangle", 1);
+                Debug.Log($"{enemyName} applies Entangle (prevents player from attacking).");
+            }
         }
-        else if (type == SlaverType.Red)
+        else
         {
-            player.ApplyStatusEffect("Entangle", 1);
-            Debug.Log($"{enemyName} applies Entangle (prevents player from attacking).");
+            Debug.LogError("StatusEffectManager is missing from PlayerStats!");
         }
     }
 }

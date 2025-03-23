@@ -26,10 +26,18 @@ public class Slime : EnemyStats
         else
         {
             AttackPlayer();
-            if (type == SlimeType.Acid)
+            if (type == SlimeType.Acid && player != null)
             {
-                player.ApplyStatusEffect("Feeble", 1);
-                Debug.Log($"{enemyName} applies Feeble!");
+                StatusEffectManager playerStatusManager = player.GetComponent<StatusEffectManager>();
+                if (playerStatusManager != null)
+                {
+                    playerStatusManager.ApplyStatusEffect("Feeble", 1);
+                    Debug.Log($"{enemyName} applies Feeble!");
+                }
+                else
+                {
+                    Debug.LogWarning("Player does not have a StatusEffectManager component!");
+                }
             }
         }
 

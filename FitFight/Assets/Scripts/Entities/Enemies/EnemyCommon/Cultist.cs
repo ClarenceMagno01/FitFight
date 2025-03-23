@@ -19,8 +19,17 @@ public class Cultist : EnemyStats
         if (!hasBuffed)
         {
             // First turn: Apply Ritual (Gains Pumped every turn)
-            player.ApplyStatusEffect("Pumped", ritualStacks);
-            Debug.Log($"{enemyName} chants Ritual! Gains {ritualStacks} Pumped per turn.");
+            StatusEffectManager enemyStatusManager = GetComponent<StatusEffectManager>();
+            if (enemyStatusManager != null)
+            {
+                enemyStatusManager.ApplyStatusEffect("Pumped", ritualStacks);
+                Debug.Log($"{enemyName} chants Ritual! Gains {ritualStacks} Pumped per turn.");
+            }
+            else
+            {
+                Debug.LogWarning($"{enemyName} is missing a StatusEffectManager component!");
+            }
+
             hasBuffed = true;
         }
         else

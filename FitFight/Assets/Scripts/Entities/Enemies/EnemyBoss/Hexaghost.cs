@@ -20,9 +20,16 @@ public class Hexaghost : BossEnemy
 
         if (turnCounter == 1)
         {
-            // First Turn: Applies 3 stacks of Burn
-            player.ApplyStatusEffect("Burn", 3);
-            Debug.Log($"{enemyName} fills the battlefield with flames! Player gains 3 Burn stacks.");
+            // First Turn: Applies 3 stacks of Burn using StatusEffectManager
+            if (player.TryGetComponent<StatusEffectManager>(out StatusEffectManager playerStatusManager))
+            {
+                playerStatusManager.ApplyStatusEffect("Burn", 3);
+                Debug.Log($"{enemyName} fills the battlefield with flames! Player gains 3 Burn stacks.");
+            }
+            else
+            {
+                Debug.LogError("StatusEffectManager is missing from PlayerStats!");
+            }
         }
         else if (turnCounter % 6 == 0)
         {

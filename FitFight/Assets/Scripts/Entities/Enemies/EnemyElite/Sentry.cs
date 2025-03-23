@@ -20,8 +20,15 @@ public class Sentry : EliteEnemy
         if (turnCounter % 2 == 0)
         {
             // Every second turn: Inflicts Lethargy (reduces player attack)
-            player.ApplyStatusEffect("Lethargy", 1);
-            Debug.Log($"{enemyName} emits a weakening pulse! Player gains 1 Lethargy stack.");
+            if (player.TryGetComponent<StatusEffectManager>(out StatusEffectManager playerStatusManager))
+            {
+                playerStatusManager.ApplyStatusEffect("Lethargy", 1);
+                Debug.Log($"{enemyName} emits a weakening pulse! Player gains 1 Lethargy stack.");
+            }
+            else
+            {
+                Debug.LogWarning("Player is missing a StatusEffectManager component!");
+            }
         }
         else
         {

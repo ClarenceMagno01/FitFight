@@ -17,9 +17,16 @@ public class JawWorm : EnemyStats
     {
         if (isDefensive)
         {
-            player.ApplyStatusEffect("Reinforced", 1);
-            player.ApplyStatusEffect("Pumped", 1);
-            Debug.Log($"{enemyName} applies 1 Reinforced (boosts block gain) and 1 Pumped (boosts attack) to itself.");
+            if (statusEffectManager != null)
+            {
+                statusEffectManager.ApplyStatusEffect("Reinforced", 1);
+                statusEffectManager.ApplyStatusEffect("Pumped", 1);
+                Debug.Log($"{enemyName} applies 1 Reinforced (boosts block gain) and 1 Pumped (boosts attack) to itself.");
+            }
+            else
+            {
+                Debug.LogError($"{enemyName} is missing a StatusEffectManager!");
+            }
         }
         else
         {
