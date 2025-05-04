@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29618d3fef194b1b91cd5f3c4c48626e, type: 3}
+  m_Name: Overhead Press
+  m_EditorClassIdentifier: 
+  id: 1b2f1d61-fa41-476e-8ac2-f51013ab73b5
+  info:
+    requiredReps: 2
+    name: Overhead Press
+    description: Deal 6 damage.
+    type: 0
+    price: 30
+  assets:
+    exercise:
+      rid: 5816801701968216219
+    commands:
+    - rid: 5816801701968216227
+  canPickTarget: 1
+  isOneTimeUse: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 5816801701968216219
+      type: {class: OverheadPress, ns: _Project.Scripts.Main.Game.Exercise.Arms, asm: Main}
+      data: 
+    - rid: 5816801701968216227
+      type: {class: AttackCommand, ns: _Project.Scripts.Main.Game.Commands.EnemyTarget, asm: Main}
+      data:
+        _targetType: 0
+        _damage: 6
+        _repeatCount: 1
+        _strengthMultiplier: 1

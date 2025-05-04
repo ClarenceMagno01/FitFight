@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29618d3fef194b1b91cd5f3c4c48626e, type: 3}
+  m_Name: Tree Pose
+  m_EditorClassIdentifier: 
+  id: ff581b9a-3cfb-4c12-9ff3-c427d15facd3
+  info:
+    requiredReps: 2
+    name: Tree Pose
+    description: 'At the end of your turn,
+
+      gain 3 Block.'
+    type: 1
+    price: 55
+  assets:
+    exercise:
+      rid: 5816801701968216231
+    commands:
+    - rid: 5816801701968216232
+  canPickTarget: 0
+  isOneTimeUse: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5816801701968216231
+      type: {class: TreePose, ns: _Project.Scripts.Main.Game.Exercise.Yoga, asm: Main}
+      data: 
+    - rid: 5816801701968216232
+      type: {class: LateCommand, ns: _Project.Scripts.Main.Game.Commands, asm: Main}
+      data:
+        _gameStart: 0
+        _onGameStart:
+          rid: -2
+        _gameWon: 0
+        _onGameWon:
+          rid: -2
+        _blockGained: 0
+        _onBlockGained:
+          rid: -2
+        _startPlayerTurn: 0
+        _startPlayerTurnCommand:
+          rid: -2
+        _endPlayerTurn: 1
+        _endPlayerTurnCommand:
+          rid: 5816801701968216242
+        isPersistent: 1
+    - rid: 5816801701968216242
+      type: {class: GainBlockCommand, ns: _Project.Scripts.Main.Game.Commands.PlayerTarget, asm: Main}
+      data:
+        _bonusBlock: 3

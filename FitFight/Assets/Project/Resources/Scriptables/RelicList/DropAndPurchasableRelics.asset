@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e2cf6aa449a47ba92b9fee740e225ad, type: 3}
+  m_Name: DropAndPurchasableRelics
+  m_EditorClassIdentifier: 
+  list:
+  - {fileID: 11400000, guid: afce9639d3382394fb12e17c3a608f3c, type: 2}
+  - {fileID: 11400000, guid: 7a22afe2efdd3ec438c0204b02ad14ea, type: 2}
+  - {fileID: 11400000, guid: 004c84baa8a62114d8a96d32c96e88a2, type: 2}
+  - {fileID: 11400000, guid: d7422408ef90ac14db025d0d6cceca34, type: 2}
+  - {fileID: 11400000, guid: ec6da4e8e0e6e3d4597d3406f0d81a0e, type: 2}
+  - {fileID: 11400000, guid: 0bb6f6beb77483f46bac9e99116c0627, type: 2}
+  - {fileID: 11400000, guid: d0adcfb2340530544867617a0e429be4, type: 2}
+  - {fileID: 11400000, guid: 33653da00e8b57a4e85258b69a812129, type: 2}
+  - {fileID: 11400000, guid: f748c84710f813243b73f2141ba39c71, type: 2}
+  - {fileID: 11400000, guid: be3d499416acdbc41a41c9aec8f681c5, type: 2}
+  - {fileID: 11400000, guid: 7cf23b1af29d80a4e97f2c631f3801f4, type: 2}

@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5700c9b8531f4d328c50550cf916d0a2, type: 3}
+  m_Name: MinorLevels
+  m_EditorClassIdentifier: 
+  dataList:
+  - enemiesPrefab:
+    - {fileID: 720838019161271659, guid: 46de6c1f8e0f791488c7fa23b90ebcb2, type: 3}
+    - {fileID: 5909801856643545486, guid: 07b5b85cdcd97184781f92df50dbc9ef, type: 3}
+    rewards:
+      gold: 5
+      hasRandomRelic: 0
+      numberOfCardChoices: 1
+      specificRandomCardPool: 0
+      cardPool: []
+  - enemiesPrefab:
+    - {fileID: 6400989886477090249, guid: d5869a45dbe9aaa48a8c0f738a91f733, type: 3}
+    rewards:
+      gold: 10
+      hasRandomRelic: 0
+      numberOfCardChoices: 1
+      specificRandomCardPool: 0
+      cardPool: []
+  - enemiesPrefab:
+    - {fileID: 5016120369081256919, guid: ce5700d5c656a404daf66e81fbd16bdc, type: 3}
+    - {fileID: 5909801856643545486, guid: 07b5b85cdcd97184781f92df50dbc9ef, type: 3}
+    - {fileID: 720838019161271659, guid: 46de6c1f8e0f791488c7fa23b90ebcb2, type: 3}
+    rewards:
+      gold: 8
+      hasRandomRelic: 0
+      numberOfCardChoices: 1
+      specificRandomCardPool: 0
+      cardPool: []
+  - enemiesPrefab:
+    - {fileID: 6555586201350908329, guid: 0704abc383c0ebe4dabf934d3bd5d2d8, type: 3}
+    rewards:
+      gold: 6
+      hasRandomRelic: 0
+      numberOfCardChoices: 1
+      specificRandomCardPool: 0
+      cardPool: []
+  - enemiesPrefab:
+    - {fileID: 9153326501745322320, guid: 48cabfab3a7ddc748aa5a5ecb62189f3, type: 3}
+    - {fileID: 5016120369081256919, guid: ce5700d5c656a404daf66e81fbd16bdc, type: 3}
+    rewards:
+      gold: 7
+      hasRandomRelic: 0
+      numberOfCardChoices: 1
+      specificRandomCardPool: 0
+      cardPool: []
+  - enemiesPrefab:
+    - {fileID: 8692091360665787291, guid: e198a18c5b09aad4dac577157966faea, type: 3}
+    rewards:
+      gold: 9
+      hasRandomRelic: 0
+      numberOfCardChoices: 1
+      specificRandomCardPool: 0
+      cardPool: []
+  - enemiesPrefab:
+    - {fileID: 8920428384254888934, guid: 6a216a48306a262468fa4d6d5a42f1af, type: 3}
+    - {fileID: 2659286355758175906, guid: 6fa9169c96fa56c46a45fa37cec3aa2a, type: 3}
+    rewards:
+      gold: 6
+      hasRandomRelic: 0
+      numberOfCardChoices: 1
+      specificRandomCardPool: 0
+      cardPool: []
