@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29618d3fef194b1b91cd5f3c4c48626e, type: 3}
+  m_Name: Hinge Pose
+  m_EditorClassIdentifier: 
+  id: 333f301c-b930-4542-bc77-f407608efe1d
+  info:
+    requiredReps: 3
+    name: Hinge Pose
+    description: 'Whenever you gain
+
+      Block, deal 5 damage
+
+      to a random
+      enemy'
+    type: 1
+    price: 55
+  assets:
+    exercise:
+      rid: 5816801706599514187
+    commands:
+    - rid: 5816801706599514188
+  canPickTarget: 0
+  isOneTimeUse: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5816801706599514187
+      type: {class: HingePose, ns: _Project.Scripts.Main.Game.Exercise.Yoga, asm: Main}
+      data: 
+    - rid: 5816801706599514188
+      type: {class: LateCommand, ns: _Project.Scripts.Main.Game.Commands, asm: Main}
+      data:
+        _gameStart: 0
+        _onGameStart:
+          rid: -2
+        _gameWon: 0
+        _onGameWon:
+          rid: -2
+        _blockGained: 1
+        _onBlockGained:
+          rid: 5816801706599514189
+        _startPlayerTurn: 0
+        _startPlayerTurnCommand:
+          rid: -2
+        _endPlayerTurn: 0
+        _endPlayerTurnCommand:
+          rid: -2
+        isPersistent: 1
+    - rid: 5816801706599514189
+      type: {class: AttackCommand, ns: _Project.Scripts.Main.Game.Commands.EnemyTarget, asm: Main}
+      data:
+        _targetType: 1
+        _damage: 5
+        _repeatCount: 1
+        _strengthMultiplier: 1

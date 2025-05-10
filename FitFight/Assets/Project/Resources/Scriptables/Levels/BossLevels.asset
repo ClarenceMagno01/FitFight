@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5700c9b8531f4d328c50550cf916d0a2, type: 3}
+  m_Name: BossLevels
+  m_EditorClassIdentifier: 
+  dataList:
+  - enemiesPrefab:
+    - {fileID: 5365137529963667432, guid: 53ef464978f2ead4894f9a9c1c6ec38b, type: 3}
+    rewards:
+      gold: 100
+      hasRandomRelic: 1
+      numberOfCardChoices: 3
+      specificRandomCardPool: 0
+      cardPool: []

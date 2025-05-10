@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39297a88d0e44808f49778acbdd1024, type: 3}
+  m_Name: Meat on the Bone
+  m_EditorClassIdentifier: 
+  id: 4218f52d-5f62-4dea-b86e-92dc16168d36
+  info:
+    name: Meat on the Bone
+    description: Heal 12 HP at the end of combat if HP is 50% or below
+  price: 250
+  assets:
+    image: {fileID: 21300000, guid: 2d32f96b28dc0d9479129a87f6fcc318, type: 3}
+    commands:
+    - rid: 5816801832243036255
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5816801832243036255
+      type: {class: LateCommand, ns: _Project.Scripts.Main.Game.Commands, asm: Main}
+      data:
+        _gameStart: 0
+        _onGameStart:
+          rid: -2
+        _gameWon: 1
+        _onGameWon:
+          rid: 5816801832243036256
+        _blockGained: 0
+        _onBlockGained:
+          rid: -2
+        _startPlayerTurn: 0
+        _startPlayerTurnCommand:
+          rid: -2
+        _endPlayerTurn: 0
+        _endPlayerTurnCommand:
+          rid: -2
+        isPersistent: 0
+    - rid: 5816801832243036256
+      type: {class: MeatBoneCommand, ns: _Project.Scripts.Main.Game.Commands.PlayerTarget, asm: Main}
+      data:
+        _healAmount: 12

@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39297a88d0e44808f49778acbdd1024, type: 3}
+  m_Name: Paper Phrog
+  m_EditorClassIdentifier: 
+  id: 7ff27fb2-3b19-4f77-b7c5-2ac9afeb1ae8
+  info:
+    name: Paper Phrog
+    description: Enemies with Vulnerable take 75% more damage rather than 50%.
+  price: 250
+  assets:
+    image: {fileID: 21300000, guid: 2bf92f461ed19f24fb052c9061c08bd9, type: 3}
+    commands:
+    - rid: 5816801832243036261
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5816801832243036261
+      type: {class: LateCommand, ns: _Project.Scripts.Main.Game.Commands, asm: Main}
+      data:
+        _gameStart: 1
+        _onGameStart:
+          rid: 5816801832243036262
+        _gameWon: 0
+        _onGameWon:
+          rid: -2
+        _blockGained: 0
+        _onBlockGained:
+          rid: -2
+        _startPlayerTurn: 0
+        _startPlayerTurnCommand:
+          rid: -2
+        _endPlayerTurn: 0
+        _endPlayerTurnCommand:
+          rid: -2
+        isPersistent: 0
+    - rid: 5816801832243036262
+      type: {class: PaperPhrogCommand, ns: _Project.Scripts.Main.Game.Commands.EnemyTarget, asm: Main}
+      data:
+        _targetType: 2

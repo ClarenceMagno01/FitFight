@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29618d3fef194b1b91cd5f3c4c48626e, type: 3}
+  m_Name: Warrior II Pose
+  m_EditorClassIdentifier: 
+  id: 4e8440ef-c811-486e-986d-ad7017d5f786
+  info:
+    requiredReps: 2
+    name: Warrior II Pose
+    description: 'At the end of your turn,
+
+      lose 1 hp and deal 5
+
+      damage
+      to All
+
+      enemies'
+    type: 1
+    price: 55
+  assets:
+    exercise:
+      rid: 5816801701968216236
+    commands:
+    - rid: 5816801701968216241
+  canPickTarget: 0
+  isOneTimeUse: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5816801701968216236
+      type: {class: WarriorTwoPose, ns: _Project.Scripts.Main.Game.Exercise.Yoga, asm: Main}
+      data: 
+    - rid: 5816801701968216241
+      type: {class: LateCommand, ns: _Project.Scripts.Main.Game.Commands, asm: Main}
+      data:
+        _gameStart: 0
+        _onGameStart:
+          rid: -2
+        _gameWon: 0
+        _onGameWon:
+          rid: -2
+        _blockGained: 0
+        _onBlockGained:
+          rid: -2
+        _startPlayerTurn: 0
+        _startPlayerTurnCommand:
+          rid: -2
+        _endPlayerTurn: 1
+        _endPlayerTurnCommand:
+          rid: 5816801701968216243
+        isPersistent: 1
+    - rid: 5816801701968216243
+      type: {class: ComboCommand, ns: _Project.Scripts.Main.Game.Commands, asm: Main}
+      data:
+        _commands:
+        - rid: 5816801701968216244
+        - rid: 5816801701968216245
+    - rid: 5816801701968216244
+      type: {class: LoseHealthCommand, ns: _Project.Scripts.Main.Game.Commands.PlayerTarget, asm: Main}
+      data:
+        _amount: 1
+    - rid: 5816801701968216245
+      type: {class: AttackCommand, ns: _Project.Scripts.Main.Game.Commands.EnemyTarget, asm: Main}
+      data:
+        _targetType: 2
+        _damage: 5
+        _repeatCount: 1
+        _strengthMultiplier: 1
