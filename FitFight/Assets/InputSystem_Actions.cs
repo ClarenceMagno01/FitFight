@@ -5,7 +5,11 @@
 <<<<<<< Updated upstream:FitFight/Assets/InputSystem_Actions.cs
 <<<<<<< Updated upstream:FitFight/Assets/InputSystem_Actions.cs
 <<<<<<< Updated upstream:FitFight/Assets/InputSystem_Actions.cs
+<<<<<<< Updated upstream:FitFight/Assets/InputSystem_Actions.cs
 //     from Assets/InputSystem_Actions.inputactions
+=======
+//     from Assets/Project/Scripts/Main/InputSystem/GameplayInput.inputactions
+>>>>>>> Stashed changes:FitFight/Assets/Project/Scripts/Main/InputSystem/GameplayInput.cs
 =======
 //     from Assets/Project/Scripts/Main/InputSystem/GameplayInput.inputactions
 >>>>>>> Stashed changes:FitFight/Assets/Project/Scripts/Main/InputSystem/GameplayInput.cs
