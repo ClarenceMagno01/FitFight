@@ -34,7 +34,12 @@ namespace _Project.Scripts.Main.VirtualMouse
 
         private void DetectNoneUI()
         {
-            Ray ray = _mainCamera.ScreenPointToRay(_virtualMouseInput.virtualMouse.position.ReadValue());
+            Ray ray = new Ray(); // default initialization
+            if (_mainCamera != null && _virtualMouseInput != null)
+            {
+                ray = _mainCamera.ScreenPointToRay(_virtualMouseInput.virtualMouse.position.ReadValue());
+                // rest of your code...
+            }
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit,100,_uiLayerMask))
             {
