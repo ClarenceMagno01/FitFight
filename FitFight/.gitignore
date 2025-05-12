@@ -2,6 +2,7 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
+.utmp/
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -71,3 +72,14 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/Feel/NiceVibrations/Plugins/iOS/LofeltHaptics.framework.meta
+Assets/Feel/NiceVibrations/Plugins/iOS/LofeltHaptics.framework/Headers.meta
+Assets/Feel/NiceVibrations/Plugins/iOS/LofeltHaptics.framework/Info.plist
+Assets/Feel/NiceVibrations/Plugins/iOS/LofeltHaptics.framework/LofeltHaptics
+Assets/Feel/NiceVibrations/Plugins/iOS/LofeltHaptics.framework/Modules.meta
+Assets/Feel/NiceVibrations/Plugins/iOS/LofeltHaptics.framework/Headers/LofeltHaptics.h
+Assets/Feel/NiceVibrations/Plugins/iOS/LofeltHaptics.framework/Modules/module.modulemap
+Assets/Feel/NiceVibrations/Plugins/macOS/libnice_vibrations_editor_plugin.dylib
+Assets/Feel/NiceVibrations/Plugins/macOS/libnice_vibrations_editor_plugin.dylib.meta
+Assets/Feel/NiceVibrations/Plugins/iOS.meta
+Assets/Feel/NiceVibrations/Plugins/macOS.meta
