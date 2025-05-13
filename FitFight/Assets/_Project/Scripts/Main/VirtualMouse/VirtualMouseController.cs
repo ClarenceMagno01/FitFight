@@ -13,7 +13,9 @@ namespace _Project.Scripts.Main.VirtualMouse
         private Camera _mainCamera;
         private GameObject _lastGameObject;
         private int _uiLayerMask;
-    
+
+        [SerializeField] private float cursorSpeed = 300f;
+
         private void Awake()
         {
             _virtualMouseInput = GetComponent<VirtualMouseInput>();
@@ -23,6 +25,7 @@ namespace _Project.Scripts.Main.VirtualMouse
         private void Start()
         {
             _uiLayerMask = ~LayerMask.GetMask("UI");
+            _virtualMouseInput.cursorSpeed = cursorSpeed;
         }
 
         private void Update()
