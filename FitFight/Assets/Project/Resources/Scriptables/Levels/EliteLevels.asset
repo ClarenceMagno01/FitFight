@@ -18,7 +18,7 @@ MonoBehaviour:
     rewards:
       gold: 20
       hasRandomRelic: 1
-      numberOfCardChoices: 1
+      numberOfCardChoices: 3
       specificRandomCardPool: 0
       cardPool: []
   - enemiesPrefab:
@@ -27,7 +27,7 @@ MonoBehaviour:
     rewards:
       gold: 22
       hasRandomRelic: 1
-      numberOfCardChoices: 1
+      numberOfCardChoices: 3
       specificRandomCardPool: 0
       cardPool: []
   - enemiesPrefab:
@@ -36,7 +36,7 @@ MonoBehaviour:
     rewards:
       gold: 18
       hasRandomRelic: 1
-      numberOfCardChoices: 1
+      numberOfCardChoices: 3
       specificRandomCardPool: 0
       cardPool: []
   - enemiesPrefab:
@@ -45,6 +45,6 @@ MonoBehaviour:
     rewards:
       gold: 19
       hasRandomRelic: 1
-      numberOfCardChoices: 1
+      numberOfCardChoices: 3
       specificRandomCardPool: 0
       cardPool: []

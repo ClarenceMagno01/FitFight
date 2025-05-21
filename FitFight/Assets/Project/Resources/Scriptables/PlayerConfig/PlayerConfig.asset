@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cdd9c7ad261462aa5db6f59accc0778, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  characterName: Ironclad
-  initialHealth: 2000
-  initialGold: 300
+  characterName: FitFighter
+  initialHealth: 100
+  initialGold: 150
   initialCards: {fileID: 11400000, guid: 03bd877720850b54c853fb3700b06f22, type: 2}
   starterRelic: {fileID: 11400000, guid: 55602194904712244b457c6ce0a164ee, type: 2}
