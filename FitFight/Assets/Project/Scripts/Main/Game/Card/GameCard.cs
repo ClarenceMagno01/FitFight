@@ -12,6 +12,7 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Video; // <-- Required for VideoPlayer
 using static _Project.Scripts.Main.Game.Events.GameCardEvents;
 
 namespace _Project.Scripts.Main.Game.Card
@@ -22,13 +23,14 @@ namespace _Project.Scripts.Main.Game.Card
         [SerializeField] private TMP_Text _txtReps;
         [SerializeField] private TMP_Text _txtName;
         [SerializeField] private TMP_Text _txtDescription;
-        
+        [SerializeField] private VideoPlayer _videoPlayer; // <-- Added VideoPlayer reference
+
         [Header("Activate Feedback")]
         [SerializeField] private MMF_Player _activateFeedback;
         
         [Space]
         [Header("Data")]
-        public int drawID; 
+        public int drawID;
         
         public int targetIndex = -1;
         private CardEffectComponent _effect;
@@ -37,9 +39,9 @@ namespace _Project.Scripts.Main.Game.Card
         [ShowInInspector] public CardType Type => Data?.info.type ?? CardType.Attack;
         [ShowInInspector] public bool CanPickTarget => Data?.canPickTarget ?? false;
         [ShowInInspector] public bool IsSelected { get; private set; }
-        
+
         public static bool IsCardActivating = false;
-        
+
         private void Awake()
         {
             _sortingGroup = GetComponent<SortingGroup>();
@@ -51,7 +53,7 @@ namespace _Project.Scripts.Main.Game.Card
             IsCardActivating = false;
             EventBus<EnableColliderEvent>.Register(EnableCollider);
         }
- 
+
         private void OnDisable()
         {
             Cleanup();
@@ -64,31 +66,46 @@ namespace _Project.Scripts.Main.Game.Card
 
         public void InvalidateUI()
         {
-            if(Data == null) 
+            if (Data == null)
                 throw new NullReferenceException("Card data is null");
 
             _txtReps.text = Data.info.requiredReps.ToString();
             _txtName.text = Data.info.name;
             _txtDescription.text = Data.info.description;
+
+            // Handle video playback
+            if (_videoPlayer != null)
+            {
+                if (Data.videoClip != null)
+                {
+                    _videoPlayer.clip = Data.videoClip;
+                    _videoPlayer.Play();
+                }
+                else
+                {
+                    _videoPlayer.Stop();
+                    _videoPlayer.clip = null;
+                }
+            }
         }
-        
+
         public void Activate(Action onActivated = null)
         {
             IsCardActivating = true;
             AsyncActivate(onActivated).Forget();
         }
-        
+
         private async UniTaskVoid AsyncActivate(Action onActivated)
         {
             Player player = EntityManager.Instance.PlayerEntity;
             List<Enemy> targets = EntityManager.Instance.Enemies;
-            
+
             await PlayActivateFeedback();
             foreach (var command in Data.assets.commands)
             {
                 if (command is LateCommand lateCommand)
                 {
-                    if(lateCommand.isPersistent)
+                    if (lateCommand.isPersistent)
                         CommandTriggerManager.Instance.AddPersistentCommand(lateCommand);
                     else
                         CommandTriggerManager.Instance.AddOneShotCommand(lateCommand);
@@ -101,18 +118,19 @@ namespace _Project.Scripts.Main.Game.Card
                         targetCommand.SetPriority(targetIndex);
                         targetCommand.SetTargets(targets);
                     }
-                    if(command is CardBaseCommand cardCommand)
+                    if (command is CardBaseCommand cardCommand)
                         cardCommand.SetCardData(Data);
+
                     await command.ExecuteImmediate();
                     Debug.Log($"Command {command.GetType().Name} executed");
                 }
             }
+
             Debug.Log($"Card: {Data?.info.name} Activated");
             onActivated?.Invoke();
             IsCardActivating = false;
         }
-        
-        
+
         private async UniTask PlayActivateFeedback()
         {
             _activateFeedback.PlayFeedbacks();
@@ -146,14 +164,20 @@ namespace _Project.Scripts.Main.Game.Card
         {
             GetComponent<BoxCollider2D>().enabled = ev.IsEnable;
         }
-        
+
         private void Cleanup()
         {
             _sortingGroup.sortingOrder = 0;
             targetIndex = -1;
             IsSelected = false;
             Data = null;
-        }
 
+            // Optionally stop video when card is reset
+            if (_videoPlayer != null)
+            {
+                _videoPlayer.Stop();
+                _videoPlayer.clip = null;
+            }
+        }
     }
 }

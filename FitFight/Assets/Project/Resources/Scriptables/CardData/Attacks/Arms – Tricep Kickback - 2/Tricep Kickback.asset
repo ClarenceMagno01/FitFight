@@ -24,6 +24,7 @@ MonoBehaviour:
       rid: 5816801701968216221
     commands:
     - rid: 5816801701968216230
+  videoClip: {fileID: 32900000, guid: 96a10fdf8bcc8b44dab795012ff08511, type: 3}
   canPickTarget: 1
   isOneTimeUse: 0
   references:

@@ -5,6 +5,8 @@ using _Project.Scripts.Main.Game.Commands.Base;
 using _Project.Scripts.Main.Game.Exercise;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Video;
+
 
 namespace _Project.Scripts.Main.Data
 {
@@ -14,32 +16,36 @@ namespace _Project.Scripts.Main.Data
         Power,
         Skills,
     }
-    
+
     [Serializable]
     public struct CardInfo
     {
         public int requiredReps;
-        public string name; //Exercise name
+        public string name; // Exercise name
         [Multiline(4)] public string description;
         public CardType type;
         public int price;
     }
-    
+
     [Serializable]
     public struct CardAssets
     {
         [SerializeReference] public ExerciseBase exercise;
         [SerializeReference] public ICommand[] commands;
     }
-     
+
     [CreateAssetMenu(fileName = "CardData", menuName = "Data/CardData")]
     public class CardData : ScriptableObject
     {
-        [ReadOnly] public string id = System.Guid.NewGuid().ToString(); 
+        [ReadOnly] public string id = System.Guid.NewGuid().ToString();
         public CardInfo info;
         public CardAssets assets;
+
+        [Header("Media")]
+        public VideoClip videoClip;
+
         [Header("Play Conditions")]
-        public bool canPickTarget; //All targeting or random don't need this
-        public bool isOneTimeUse; //Exhaust or Discard card once used
-    } 
+        public bool canPickTarget; // All targeting or random don't need this
+        public bool isOneTimeUse;  // Exhaust or Discard card once used
+    }
 }
