@@ -88,7 +88,7 @@ namespace _Project.Scripts.Main.UI
             _relicBar.transform.DestroyAllChildren();
             foreach (var relic in _gm.CurrentRelics)
             {
-                RelicIcon relicIcon =  Instantiate(_relicIconPrefab, _relicBar.transform);
+                RelicIcon relicIcon = Instantiate(_relicIconPrefab, _relicBar.transform);
                 relicIcon.SetData(relic);
                 relicIcon.ShowPrice(false);
             }
@@ -99,22 +99,32 @@ namespace _Project.Scripts.Main.UI
             _txtHealth.text = $"{ev.CurrentHealth}/{ev.MaxHealth}";
         }
         
-        private void UpdateGold(UpdateGoldEvent ev) =>  _txtGold.text = _gm.Gold.ToString();
+        private void UpdateGold(UpdateGoldEvent ev) => _txtGold.text = _gm.Gold.ToString();
     
-        private void UpdateNumberOfCards(UpdateNumberOfCardsEvent ev) =>  _txtNumberOfCards.text = _gm.CurrentCards.Count.ToString();
+        private void UpdateNumberOfCards(UpdateNumberOfCardsEvent ev) => _txtNumberOfCards.text = _gm.CurrentCards.Count.ToString();
 
         private void ShowLosePanel(ShowLosePanelEvent ev)
         {
             _losePanel.gameObject.SetActive(ev.IsShow);
-            _losePanel.SetGameSummary(ev.Summary);
+
+            var summary = new GameSummary
+            {
+                TotalCards = ev.Summary.TotalCards,
+                TotalRelics = ev.Summary.TotalRelics,
+                Gold = ev.Summary.Gold,
+                TimeElapsedFormatted = TimerManager.Instance?.GetFormattedTime() ?? "N/A"
+            };
+
+            _losePanel.SetGameSummary(summary);
         }
-        
+
         #region Button Clicks
 
         private void OnClickSettings()
         {
-            if(CardSystemController.IsDrawingCards)
+            if (CardSystemController.IsDrawingCards)
                 return;
+
             _panelSettings.gameObject.SetActive(true);
             EventBus<GameEvents.PauseGameEvent>.Raise(new GameEvents.PauseGameEvent());
         }
@@ -123,10 +133,11 @@ namespace _Project.Scripts.Main.UI
         {
             if (GameController.IsGameStarted)
             {
-                if(CardSystemController.IsDrawingCards)
+                if (CardSystemController.IsDrawingCards)
                     return;
+
                 _panelSettings.gameObject.SetActive(false);
-                EventBus<GameEvents.PlayerLoseEvent>.Raise(new GameEvents.PlayerLoseEvent()); //Should Open Lose Panel
+                EventBus<GameEvents.PlayerLoseEvent>.Raise(new GameEvents.PlayerLoseEvent());
             }
             else
             {
@@ -137,7 +148,8 @@ namespace _Project.Scripts.Main.UI
                     {
                         TotalCards = _gm.CurrentCards.Count,
                         TotalRelics = _gm.CurrentRelics.Count,
-                        Gold = _gm.Gold
+                        Gold = _gm.Gold,
+                        TimeElapsedFormatted = TimerManager.Instance?.GetFormattedTime() ?? "N/A"
                     }
                 });
             }
@@ -147,7 +159,7 @@ namespace _Project.Scripts.Main.UI
         {
             GameManager.Instance.GoToMainMenu();
         }
-        
+
         public void OnCloseSettings()
         {
             _panelSettings.gameObject.SetActive(false);
@@ -160,7 +172,7 @@ namespace _Project.Scripts.Main.UI
             _panelViewDeck.DisplayCards(_gm.CurrentCards);
             EventBus<GameEvents.PauseGameEvent>.Raise(new GameEvents.PauseGameEvent());
         }
-        
+
         public void OnCloseViewDeck()
         {
             _panelViewDeck.gameObject.SetActive(false);

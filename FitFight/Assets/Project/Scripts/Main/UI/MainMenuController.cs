@@ -45,6 +45,8 @@ namespace _Project.Scripts.Main
         private void OnClickStart()
         {
             SceneManager.LoadScene("MapScene");
+            TimerManager.Instance?.StartTimer();
+            Debug.Log("Game timer started.");
         }
 
         private void OnClickExit()

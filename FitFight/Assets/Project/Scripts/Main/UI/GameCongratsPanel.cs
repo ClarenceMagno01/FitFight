@@ -12,11 +12,14 @@ namespace _Project.Scripts.Main
         [SerializeField] private TMP_Text _txtTotalCards;
         [SerializeField] private TMP_Text _txtTotalRelics;
         [SerializeField] private TMP_Text _txtTotalGold;
+        [SerializeField] private TMP_Text _txtTime;
+
 
         [SerializeField] private Button _btnMainMenu;
 
         private void OnEnable()
         {
+            TimerManager.Instance?.StopTimer();
             _btnMainMenu.onClick.AddListener(OnClickMainMenu);
         }
 
@@ -30,6 +33,7 @@ namespace _Project.Scripts.Main
             _txtTotalCards.text = $"Total Cards: {summary.TotalCards}";
             _txtTotalRelics.text = $"Total Relics: {summary.TotalRelics}";
             _txtTotalGold.text = $"Gold: {summary.Gold}";
+            _txtTime.text = $"Time: {TimerManager.Instance?.GetFormattedTime() ?? "N/A"}";
         }
         
         private void OnClickMainMenu() => GameManager.Instance.GoToMainMenu();
