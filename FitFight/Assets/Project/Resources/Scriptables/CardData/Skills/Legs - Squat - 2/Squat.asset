@@ -19,11 +19,13 @@ MonoBehaviour:
     description: Gain 5 Block
     type: 2
     price: 40
+    exerciseType: 0
   assets:
     exercise:
       rid: 5816801701968216259
     commands:
     - rid: 5816801701968216260
+  videoClip: {fileID: 0}
   canPickTarget: 0
   isOneTimeUse: 0
   references:

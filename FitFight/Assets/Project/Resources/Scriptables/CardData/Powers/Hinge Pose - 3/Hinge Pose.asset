@@ -24,11 +24,13 @@ MonoBehaviour:
       enemy'
     type: 1
     price: 55
+    exerciseType: 3
   assets:
     exercise:
       rid: 5816801706599514187
     commands:
     - rid: 5816801706599514188
+  videoClip: {fileID: 0}
   canPickTarget: 0
   isOneTimeUse: 1
   references:

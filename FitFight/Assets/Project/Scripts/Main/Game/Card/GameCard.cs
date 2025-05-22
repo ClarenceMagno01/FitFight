@@ -12,7 +12,7 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Video; // <-- Required for VideoPlayer
+using UnityEngine.Video;
 using static _Project.Scripts.Main.Game.Events.GameCardEvents;
 
 namespace _Project.Scripts.Main.Game.Card
@@ -23,15 +23,15 @@ namespace _Project.Scripts.Main.Game.Card
         [SerializeField] private TMP_Text _txtReps;
         [SerializeField] private TMP_Text _txtName;
         [SerializeField] private TMP_Text _txtDescription;
-        [SerializeField] private VideoPlayer _videoPlayer; // <-- Added VideoPlayer reference
+        [SerializeField] private VideoPlayer _videoPlayer;
 
         [Header("Activate Feedback")]
         [SerializeField] private MMF_Player _activateFeedback;
-        
+
         [Space]
         [Header("Data")]
         public int drawID;
-        
+
         public int targetIndex = -1;
         private CardEffectComponent _effect;
         private SortingGroup _sortingGroup;
@@ -73,7 +73,6 @@ namespace _Project.Scripts.Main.Game.Card
             _txtName.text = Data.info.name;
             _txtDescription.text = Data.info.description;
 
-            // Handle video playback
             if (_videoPlayer != null)
             {
                 if (Data.videoClip != null)
@@ -101,6 +100,7 @@ namespace _Project.Scripts.Main.Game.Card
             List<Enemy> targets = EntityManager.Instance.Enemies;
 
             await PlayActivateFeedback();
+
             foreach (var command in Data.assets.commands)
             {
                 if (command is LateCommand lateCommand)
@@ -113,6 +113,7 @@ namespace _Project.Scripts.Main.Game.Card
                 else
                 {
                     command.SetPlayer(player);
+
                     if (command is EnemyTargetBaseCommand targetCommand)
                     {
                         targetCommand.SetPriority(targetIndex);
@@ -127,6 +128,21 @@ namespace _Project.Scripts.Main.Game.Card
             }
 
             Debug.Log($"Card: {Data?.info.name} Activated");
+
+            // Notify GameController to count this exercise type
+            if (Data != null)
+            {
+                var gameController = GameObject.FindObjectOfType<GameController>();
+                if (gameController != null)
+                {
+                    gameController.RegisterActivatedExerciseType(Data.info.exerciseType);
+                }
+                else
+                {
+                    Debug.LogWarning("GameController not found to register exercise type.");
+                }
+            }
+
             onActivated?.Invoke();
             IsCardActivating = false;
         }
@@ -172,7 +188,6 @@ namespace _Project.Scripts.Main.Game.Card
             IsSelected = false;
             Data = null;
 
-            // Optionally stop video when card is reset
             if (_videoPlayer != null)
             {
                 _videoPlayer.Stop();

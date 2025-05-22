@@ -19,6 +19,7 @@ MonoBehaviour:
     description: Deal 32 damage.
     type: 0
     price: 30
+    exerciseType: 1
   assets:
     exercise:
       rid: 5816801701968216215

@@ -7,7 +7,6 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Video;
 
-
 namespace _Project.Scripts.Main.Data
 {
     public enum CardType
@@ -15,6 +14,15 @@ namespace _Project.Scripts.Main.Data
         Attack,
         Power,
         Skills,
+    }
+
+    // New enum for exercise types
+    public enum ExerciseType
+    {
+        Legs,
+        Arms,
+        Abs,
+        Yoga
     }
 
     [Serializable]
@@ -25,6 +33,9 @@ namespace _Project.Scripts.Main.Data
         [Multiline(4)] public string description;
         public CardType type;
         public int price;
+
+        // Add the new exercise type here
+        public ExerciseType exerciseType;
     }
 
     [Serializable]

@@ -19,6 +19,7 @@ MonoBehaviour:
     description: Deal 5 damage twice
     type: 0
     price: 30
+    exerciseType: 1
   assets:
     exercise:
       rid: 5816801701968216222

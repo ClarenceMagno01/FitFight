@@ -14,7 +14,8 @@ using MoreMountains.Feedbacks;
 using UnityEngine;
 using static _Project.Scripts.Main.Game.Events.CardSystemEvents;
 using static _Project.Scripts.Main.Game.Events.GameEvents;
-
+using System.Collections.Generic;
+using _Project.Scripts.Main.Data;
 
 namespace _Project.Scripts.Main.Game
 {
@@ -238,7 +239,23 @@ namespace _Project.Scripts.Main.Game
         private void OnGameLose(PlayerLoseEvent ev)
         {
             isCombartStart = false;
+
+            var exerciseCounts = new Dictionary<ExerciseType, int>(_activatedExerciseCounts); // assuming your dictionary
+
             _gameStateController.ChangeState<GameLoseState>();
+
+            EventBus<OverlayUIEvents.ShowLosePanelEvent>.Raise(new OverlayUIEvents.ShowLosePanelEvent
+            {
+                IsShow = true,
+                Summary = new GameSummary
+                {
+                    TotalCards = _gm.CurrentCards.Count,
+                    TotalRelics = _gm.CurrentRelics.Count,
+                    Gold = _gm.Gold,
+                    TimeElapsedFormatted = TimerManager.Instance?.GetFormattedTime() ?? "0:00",
+                    ActivatedExerciseCounts = exerciseCounts
+                }
+            });
         }
 
         private void OnGameWon()
@@ -286,6 +303,28 @@ namespace _Project.Scripts.Main.Game
             Cursor.visible = true;
             IsGameStarted = false;
             Time.timeScale = 1;
+        }
+
+        private Dictionary<ExerciseType, int> _activatedExerciseCounts = new Dictionary<ExerciseType, int>();
+
+        public void RegisterActivatedExerciseType(ExerciseType type)
+        {
+            if (_activatedExerciseCounts.ContainsKey(type))
+                _activatedExerciseCounts[type]++;
+            else
+                _activatedExerciseCounts[type] = 1;
+
+            Debug.Log($"ExerciseType {type} activated count: {_activatedExerciseCounts[type]}");
+        }
+
+        public Dictionary<ExerciseType, int> GetActivatedExerciseCounts()
+        {
+            return new Dictionary<ExerciseType, int>(_activatedExerciseCounts);
+        }
+
+        public void ResetActivatedExerciseCounts()
+        {
+            _activatedExerciseCounts.Clear();
         }
         
         

@@ -21,6 +21,7 @@ MonoBehaviour:
       enemies'
     type: 0
     price: 30
+    exerciseType: 1
   assets:
     exercise:
       rid: 5816801701968216211

@@ -21,12 +21,14 @@ MonoBehaviour:
       Apply 2 Vulnerable'
     type: 0
     price: 30
+    exerciseType: 2
   assets:
     exercise:
       rid: 5816801701968216205
     commands:
     - rid: 5816801701968216206
     - rid: 5816801701968216207
+  videoClip: {fileID: 0}
   canPickTarget: 1
   isOneTimeUse: 0
   references:

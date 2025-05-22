@@ -21,6 +21,7 @@ MonoBehaviour:
       random enemy 3 times.'
     type: 0
     price: 30
+    exerciseType: 1
   assets:
     exercise:
       rid: 5816801701968216223

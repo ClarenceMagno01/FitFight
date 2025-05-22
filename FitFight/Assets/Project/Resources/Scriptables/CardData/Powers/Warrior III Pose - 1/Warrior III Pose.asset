@@ -21,11 +21,13 @@ MonoBehaviour:
       lose 1 HP'
     type: 1
     price: 55
+    exerciseType: 3
   assets:
     exercise:
       rid: 5816801701968216246
     commands:
     - rid: 5816801701968216247
+  videoClip: {fileID: 0}
   canPickTarget: 0
   isOneTimeUse: 1
   references:
