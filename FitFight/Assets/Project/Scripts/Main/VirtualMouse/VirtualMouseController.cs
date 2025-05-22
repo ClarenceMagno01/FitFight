@@ -23,6 +23,7 @@ namespace _Project.Scripts.Main.VirtualMouse
         private void Start()
         {
             _uiLayerMask = ~LayerMask.GetMask("UI");
+            _virtualMouseInput.cursorSpeed = 500f;
         }
 
         private void Update()

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641a012dd0da44ff89e31f9bd34c84cd, type: 3}
   m_Name: InputConfig
   m_EditorClassIdentifier: 
-  isRingconAndGamepadEnabled: 0
+  isRingconAndGamepadEnabled: 1

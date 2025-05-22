@@ -232,7 +232,6 @@ namespace _Project.Scripts.Main.Game.PlayerTurn
                 exercise.Run(() =>
                 {
                     _repCount++;
-                    _gameUI.SetRepCounter(exercise.Counter);
                     if (_repCount == requiredRep)
                     {
                         _isExerciseQueued = false;

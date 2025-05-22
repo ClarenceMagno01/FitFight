@@ -253,7 +253,6 @@ namespace _Project.Scripts.Main.Game
                     TotalRelics = _gm.CurrentRelics.Count,
                     Gold = _gm.Gold,
                     TimeElapsedFormatted = TimerManager.Instance?.GetFormattedTime() ?? "0:00",
-                    ActivatedExerciseCounts = exerciseCounts
                 }
             });
         }

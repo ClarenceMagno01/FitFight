@@ -5,7 +5,6 @@ namespace _Project.Scripts.Main.Game.Exercise
     public abstract class ExerciseBase : IExercise
     {
         protected int counter; // counter for required valid movements to complete 1 rep
-        public int Counter => counter;
 
         public virtual void Restart()
         {

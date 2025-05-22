@@ -11,7 +11,6 @@ namespace _Project.Scripts.Main.UI
         [Header("Text")]
         [SerializeField] private TMP_Text _txtDrawPile;
         [SerializeField] private TMP_Text _txtDiscardPile;
-        [SerializeField] private TMP_Text _txtRepCounter;
 
         [Header("Buttons")]
         public Button btnStartExercise;
@@ -24,10 +23,7 @@ namespace _Project.Scripts.Main.UI
         
         public void SetDrawPileCount(int count) => _txtDrawPile.text = $"{count}";
         public void SetDiscardPileCount(int count) => _txtDiscardPile.text = $"{count}";
-        public void SetRepCounter(int count)
-        {
-            _txtRepCounter.text = count.ToString();
-        }
+
 
         private void Start()
         {
