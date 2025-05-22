@@ -24,7 +24,10 @@ namespace _Project.Scripts.Main.UI
         
         public void SetDrawPileCount(int count) => _txtDrawPile.text = $"{count}";
         public void SetDiscardPileCount(int count) => _txtDiscardPile.text = $"{count}";
-        public void SetRepCounter(int count) => _txtRepCounter.text = $"{count}";
+        public void SetRepCounter(int count)
+        {
+            _txtRepCounter.text = count.ToString();
+        }
 
         private void Start()
         {
